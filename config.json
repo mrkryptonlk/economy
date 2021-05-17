@@ -1,8 +1,8 @@
 {
   
-  "default_prefix": "q",
+    "default_prefix": "!",
     "owners": "682981714523586606",
- "GOOGLE_API_KEY": "",
+    "GOOGLE_API_KEY": "",
     "QUEUE_LIMIT": 0,
     "AME_API": "",
     "COLOR": "00FFFF"

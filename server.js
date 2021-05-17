@@ -9,7 +9,6 @@ const discord = require("discord.js");
 const client = new discord.Client({
   disableEveryone: false
 });
-const yts = require('yt-search')
 
 client.queue = new Map();
 client.vote = new Map();
@@ -52,42 +51,6 @@ client.on("message", async message => {
   if (command) command.run(client, message, args);
 });
 
-client.on("guildMemberAdd", async member => {
-
-  let chx = db.get(`welchannel_${member.guild.id}`);
-
-  if (chx === null) {
-
-    return;
-
-  }
-
-  
-
-   let data = await canva.welcome(member, { link: "https://i.pinimg.com/originals/f3/1c/39/f31c39d56512dc8fbf30f9d0fb3ee9d3.jpg" })
-
- 
-
-    const attachment = new discord.MessageAttachment(
-
-      data,
-
-      "welcome-image.png"
-
-    );
-
-  
-
-  
-
-  client.channels.cache.get(chx).send("Welcome to our Server " + member.user.username, attachment);
-
-});
-
-//ctabot
-
-
-
 client.on("message", async message => {
 if (message.channel.name == "chatbot") {
 if (message.author.bot) return;
@@ -99,9 +62,6 @@ return message.channel.send(`**:x: Please dont mention anyone**`);
 if (!message.content) return message.channel.send("Please say something.");
 fetch(`https://api.affiliateplus.xyz/api/chatbot?message=${encodeURIComponent(message.content)}&botname=${client.user.username}&ownername=KHANMANAN#1000`)
     .then(res => res.json())
-    .then(data => {
-        message.channel.send(`> ${message.content} \n <@${message.author.id}> ${data.message}`);
-    });
       message.channel.stopTyping();
 }
 });
@@ -129,77 +89,11 @@ client.on('messageDelete', function(message, channel){
   
 })
  
-
-const { GiveawaysManager } = require("discord-giveaways");
-// Starts updating currents giveaways
-const manager = new GiveawaysManager(client, {
-    storage: "./handlers/giveaways.json",
-    updateCountdownEvery: 10000,
-    default: {
-        botsCanWin: false,
-        exemptPermissions: [ "MANAGE_MESSAGES", "ADMINISTRATOR" ],
-        embedColor: "#FF0000",
-        reaction: "🎉"
-    }
-});
-// We now have a giveawaysManager property to access the manager everywhere!
-client.giveawaysManager = manager;
-
-client.on("message", async message => {
-if(!message.guild) return;
-  let prefix = db.get(`default_prefix${message.guild.id}`)
-  if(prefix === null) prefix =default_prefix;
-  
-  if(!message.content.startsWith(default_prefix)) return;
- 
-})
-
-client.on("guildCreate", guild => {
-
-  const { MessageEmbed } = require("discord.js");
-
-  const ID = "821627997520920616";
-
-  const channel = client.channels.cache.get(ID);
-
-  const sowner = guild.owner.user;
-
-  if (!channel) return;
-
-  const embed = new MessageEmbed()
-
-    .setTitle("**I Joined a Server!**")
-
-    .addField(`**SERVER NAME**`, `\`\`\`${guild.name}\`\`\``)
-
-    .addField(`**SERVER ID**`, `\`\`\`${guild.id}\`\`\``)
-
-    .addField(`**SERVER OWNER**`, `\`\`\`${sowner.tag}\`\`\``)
-
-    .addField(`**OWNER ID**`, `\`\`\`${sowner.id}\`\`\``)
- 
-    .addField(`**CREATED ON**`, `\`\`\`${guild.createdAt}\`\`\``)
-  
-    .addField(`**MEMBERS**`, `\`\`\`${guild.memberCount}\`\`\``)
-  
-    .setTimestamp()
-
-    .setColor("32CD32")
-
-    .setFooter(`Servers Count - ${client.guilds.cache.size}`);
-
-  channel.send(embed);
-
-});
-
-
 // Set the bot's online/idle/dnd/invisible status
 client.on("ready", () => {
     client.user.setStatus("online");
-    console.log("automodv12 beta is ready join support server https://dsc.gg/kmdevs")
+    console.log("Bot is now online!")
 });
-
-
 
 
 client.on("message", async message => {
@@ -213,29 +107,9 @@ if(!message.guild) return;
 
 
 
-
-
-client.on('voiceStateUpdate', (old, New) => {
-    if(old.id !== client.user.id) return
-    if(old.channelID && !New.channelID) client.queue.delete(old.guild.id)
-})
-
-client.on('ready', () => {
-var channel = client.channels.cache.get('812592647876247579');
-    if (channel) channel.join();
-});
-
-
-
-
 client.on
 client.on("ready", () => {
-    client.user.setActivity(`qhelp |Servers Count - ${client.guilds.cache.size}`, { type: "WATCHING"})
+    client.user.setActivity(`!help for commands! | 💲 Money 💲`, { type: "LISTENING"})
 })
-
-
-
-
-
 
 client.login(process.env.TOKEN);
